@@ -1,3 +1,4 @@
+
 const boxes = document.querySelectorAll('.box');
 const text = document.querySelector('#heading');
 const strategy = document.querySelector('#strategy');
@@ -45,82 +46,41 @@ const boxClicked = (e) => {
     e.target.innerText = currentPlayer;
     remainingPieces[currentPlayer]--;
 
+    console.log('Current Player:', currentPlayer);
+    console.log('Spaces Array:', spaces);
+    console.log('Remaining Pieces:', remainingPieces);
+
     if (playerWon()) {
       text.innerText = `${currentPlayer} has won!`;
-      // Delay the restart to give time to display the win message
-      setTimeout(restart, 2000);
+      restart();
       return;
     }
-
-    currentPlayer = currentPlayer === tick_circle ? tick_x : tick_circle;
   } else if (spaces[id] && selectedPiece === null) {
+    // If the box is already occupied, and no piece is selected, allow selecting it
     selectedPiece = spaces[id];
     spaces[id] = null;
     e.target.innerText = '';
-  } else if (!spaces[id] && selectedPiece !== null) {
+    remainingPieces[currentPlayer]++;
+  } else if (!spaces[id] && selectedPiece !== null && remainingPieces[currentPlayer] > 0) {
+    // If the box is unoccupied, and a piece is selected, allow placing the selected piece
     spaces[id] = selectedPiece;
     e.target.innerText = selectedPiece;
     selectedPiece = null;
+    remainingPieces[currentPlayer]--;
   }
+  currentPlayer = currentPlayer === tick_circle ? tick_x : tick_circle;
 };
 
-
-
-
-/*const playerWon = () => {
-  if (spaces[0] === currentPlayer) {
-    if (spaces[1] === currentPlayer && spaces[2] === currentPlayer) {
-      strategy.innerText = `${currentPlayer} wins up to top`;
-      return true;
-    }
-    if (spaces[3] === currentPlayer && spaces[6] === currentPlayer) {
-      strategy.innerText = `${currentPlayer} wins on the left`;
-      return true;
-    }
-    if (spaces[4] === currentPlayer && spaces[8] === currentPlayer) {
-      strategy.innerText = `${currentPlayer} wins diagonally`;
-      return true;
-    }
-  }
-  if (spaces[8] === currentPlayer) {
-    if (spaces[2] === currentPlayer && spaces[5] === currentPlayer) {
-      strategy.innerText = `${currentPlayer} wins on the right`;
-      return true;
-    }
-    if (spaces[6] === currentPlayer && spaces[7] === currentPlayer) {
-      strategy.innerText = `${currentPlayer} wins on the bottom`;
-      return true;
-    }
-  }
-  if (spaces[4] === currentPlayer) {
-    if (spaces[1] === currentPlayer && spaces[7] === currentPlayer) {
-      strategy.innerText = `${currentPlayer} wins vertically on middle`;
-      return true;
-    }
-    if (spaces[3] === currentPlayer && spaces[5] === currentPlayer) {
-      strategy.innerText = `${currentPlayer} wins horizontally on the middle`;
-      return true;
-    }
-    if (spaces[2] === currentPlayer && spaces[6] === currentPlayer) {
-      strategy.innerText = `${currentPlayer} wins diagonally`;
-      return true;
-    }
-  }
-};*/
 const playerWon = () => {
-  const checkWin = (a, b, c) => {
-    return spaces[a] === currentPlayer && spaces[b] === currentPlayer && spaces[c] === currentPlayer;
-  };
-
-  const winCombinations = [
+  const winningCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
     [0, 4, 8], [2, 4, 6]             // Diagonals
   ];
 
-  for (const combination of winCombinations) {
+  for (const combination of winningCombinations) {
     const [a, b, c] = combination;
-    if (checkWin(a, b, c)) {
+    if (spaces[a] === currentPlayer && spaces[b] === currentPlayer && spaces[c] === currentPlayer) {
       strategy.innerText = `${currentPlayer} wins!`;
       return true;
     }
@@ -128,8 +88,6 @@ const playerWon = () => {
 
   return false;
 };
-
-
 
 const restart = () => {
   setTimeout(() => {
@@ -141,11 +99,18 @@ const restart = () => {
     });
     text.innerText = `Play`;
     strategy.innerText = ``;
+    currentPlayer = tick_x;
+    remainingPieces = {
+      [tick_x]: MAX_PIECES_PER_PLAYER,
+      [tick_circle]: MAX_PIECES_PER_PLAYER,
+    };
+    selectedPiece = null;
   }, 1000);
 };
-
 
 restartButton.addEventListener('click', restart);
 restart();
 drawBoard();
+
+//uppdated
 
