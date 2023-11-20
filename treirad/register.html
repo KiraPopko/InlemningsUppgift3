@@ -35,37 +35,16 @@
 
     <script>
 
-      /*document.getElementById('startGame').addEventListener('click', function () {
-        // Get player names from the input fields and dropdown
-        const player1Name = document.getElementById('playerX').value;
-        const player2Name = document.getElementById('player0').value;
- 
-        // Save player names to local storage for access in the game.html page
-        localStorage.setItem('player1Name', player1Name);
-        localStorage.setItem('player2Name', player2Name);
- 
-        alert('Player X: ' + player1Name + '\nPlayer 0: ' + player2Name);
- 
-        // Navigate to the game.html page
-        //window.location.href = 'tictac.html';
-      
-      });*/
-
-
-      // ... your existing click event code
-
       function startGame() {
-        // Get player names
         const playerXName = document.getElementById('playerXName').value;
         const player0Name = document.getElementById('player0Name').value;
 
 
         localStorage.setItem('playerXName', playerXName);
         localStorage.setItem('player0Name', player0Name);
-        // Display player names (you can modify this part based on your game logic)
+
         alert('Player X: ' + playerXName + '\nPlayer 0: ' + player0Name);
 
-        // Add your game logic here
         window.location.href = 'tictac.html';
       }
 

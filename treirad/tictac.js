@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const MAX_PIECES_PER_PLAYER = 3;
 
-
-  // Retrieve match history data from local storage
   let matchHistoryData = JSON.parse(localStorage.getItem('matchHistoryData')) || [];
 
   const drawBoard = () => {
@@ -41,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
     [tick_circle]: MAX_PIECES_PER_PLAYER,
   };
   let selectedPiece = null;
-  let roundCount = 1;
+  let roundCount = 0;
 
   const boxClicked = (e) => {
     const id = e.target.id;
@@ -53,8 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (playerWon()) {
         text.innerText = `${getPlayerName(currentPlayer)} WINNS  in ${roundCount} rounds!`;
         return;
-
-
       }
 
       roundCount = roundCount;
@@ -75,9 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const playerWon = () => {
     const winningCombinations = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-      [0, 4, 8], [2, 4, 6]             // Diagonals
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
     ];
 
     for (const combination of winningCombinations) {
@@ -85,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (spaces[a] === currentPlayer && spaces[b] === currentPlayer && spaces[c] === currentPlayer) {
         const winningPlayerName = getPlayerName(currentPlayer);
 
-        // Store match data in local storage
         const matchData = {
           winner: getPlayerName(currentPlayer),
           opponent: getPlayerName(currentPlayer === tick_x ? tick_circle : tick_x),
@@ -96,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
         matchHistoryData.push(matchData);
         localStorage.setItem('matchHistoryData', JSON.stringify(matchHistoryData));
 
-        // Append a new row to the match history table
         const newRow = document.createElement('tr');
         const winnerCell = document.createElement('td');
         const opponentCell = document.createElement('td');

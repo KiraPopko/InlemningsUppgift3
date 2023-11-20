@@ -22,20 +22,12 @@
       <div id="playerNames">
         <span id="playerXName"></span> vs <span id="player0Name"></span>
         <script>
-          /*  // Retrieve player names from local storage
-  
-            const playerXName = localStorage.getItem('playerXName') || ' Player X';
-            const player0Name = localStorage.getItem('player0Name') || ' Player 0';
-  
-            // Display player names on the page
-            document.getElementById('playerXName').textContent = 'Player X: ' + playerXName;
-            document.getElementById('player0Name').textContent = 'Player 0: ' + player0Name;*/
+
           const playerXName = localStorage.getItem('playerXName') || ' Player X';
           const player0Name = localStorage.getItem('player0Name') || ' Player 0';
           const winningCombination = localStorage.getItem('winningCombination') || '';
           const winningPlayer = localStorage.getItem('winningPlayer') || '';
 
-          // Display player names, winning combination, and winning player on the page
           document.getElementById('playerXName').textContent = 'Player X: ' + playerXName;
           document.getElementById('player0Name').textContent = 'Player 0: ' + player0Name;
           document.getElementById('strategy').textContent = 'Winning Combination: ' + winningCombination +
@@ -58,7 +50,7 @@
         <div class="box" id="8"></div>
       </div>
     </div>
-    <!-- Länka till din JavaScript-fil här -->
+
     <br>
     <section>
       <a href="startSida.html">Start sida</a>
