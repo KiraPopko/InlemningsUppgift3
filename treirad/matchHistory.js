@@ -1,15 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
   const matchHistoryBody = document.getElementById('matchHistoryBody');
 
-  // Retrieve match history data from local storage
+
   let matchHistoryData = JSON.parse(localStorage.getItem('matchHistoryData')) || [];
 
   matchHistoryData = matchHistoryData.reverse().slice(0, 10);
 
-  // Update match history table on the match history page
   matchHistoryData.forEach((match) => {
-
-
 
     const newRow = document.createElement('tr');
     const winnerCell = document.createElement('td');
