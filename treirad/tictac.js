@@ -6,8 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const restartButton = document.querySelector('#restart');
 
   const MAX_PIECES_PER_PLAYER = 3;
-  const matchHistoryData = [];
-  let roundCount = 0;
+
+
+  // Retrieve match history data from local storage
+  let matchHistoryData = JSON.parse(localStorage.getItem('matchHistoryData')) || [];
 
   const drawBoard = () => {
     boxes.forEach((box, i) => {
@@ -39,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     [tick_circle]: MAX_PIECES_PER_PLAYER,
   };
   let selectedPiece = null;
+  let roundCount = 1;
 
   const boxClicked = (e) => {
     const id = e.target.id;
@@ -48,9 +51,14 @@ document.addEventListener('DOMContentLoaded', function () {
       remainingPieces[currentPlayer]--;
 
       if (playerWon()) {
-        text.innerText = `${getPlayerName(currentPlayer)} has won!`;
+        text.innerText = `${getPlayerName(currentPlayer)} WINNS  in ${roundCount} rounds!`;
         return;
+
+
       }
+
+      roundCount = roundCount;
+
     } else if (spaces[id] && selectedPiece === null) {
       selectedPiece = spaces[id];
       spaces[id] = null;
@@ -75,18 +83,14 @@ document.addEventListener('DOMContentLoaded', function () {
     for (const combination of winningCombinations) {
       const [a, b, c] = combination;
       if (spaces[a] === currentPlayer && spaces[b] === currentPlayer && spaces[c] === currentPlayer) {
-        const winningCombination = combination.join('-');
         const winningPlayerName = getPlayerName(currentPlayer);
-
-        localStorage.setItem('winningPlayer', currentPlayer);
-        strategy.innerText = `Player ${currentPlayer} ${winningPlayerName} wins!`;
 
         // Store match data in local storage
         const matchData = {
           winner: getPlayerName(currentPlayer),
           opponent: getPlayerName(currentPlayer === tick_x ? tick_circle : tick_x),
           roundCount: roundCount,
-          result: `${getPlayerName(currentPlayer)} won`
+          result: `${currentPlayer} won`
         };
 
         matchHistoryData.push(matchData);
@@ -102,23 +106,20 @@ document.addEventListener('DOMContentLoaded', function () {
         winnerCell.textContent = getPlayerName(currentPlayer);
         opponentCell.textContent = getPlayerName(currentPlayer === tick_x ? tick_circle : tick_x);
         roundCountCell.textContent = roundCount;
-        resultCell.textContent = `${getPlayerName(currentPlayer)} won`;
+        resultCell.textContent = `${currentPlayer} won`;
 
         newRow.appendChild(winnerCell);
         newRow.appendChild(opponentCell);
         newRow.appendChild(roundCountCell);
         newRow.appendChild(resultCell);
 
-        // Check if matchHistoryTableBody is not null or undefined before appending
         if (matchHistoryTableBody) {
           matchHistoryTableBody.appendChild(newRow);
         }
 
-
-
         setTimeout(() => {
-          strategy.innerText = ''; // Clear the strategy text after 5 seconds
-          window.location.href = 'register.html'; // Redirect to the register page
+          strategy.innerText = '';
+          window.location.href = 'register.html';
         }, 4000);
 
         return true;
@@ -127,34 +128,39 @@ document.addEventListener('DOMContentLoaded', function () {
     return false;
   };
 
-
   const getPlayerName = (player) => {
     return player === tick_x ? localStorage.getItem('playerXName') : localStorage.getItem('player0Name');
   };
 
   const restart = () => {
-    setTimeout(() => {
-      spaces.forEach((space, i) => {
-        spaces[i] = null;
-      });
-      boxes.forEach((box) => {
-        box.innerText = '';
-      });
-      text.innerText = `Play`;
-      strategy.innerText = ``;
-      currentPlayer = tick_x;
-      remainingPieces = {
-        [tick_x]: MAX_PIECES_PER_PLAYER,
-        [tick_circle]: MAX_PIECES_PER_PLAYER,
-      };
-      selectedPiece = null;
-    }, 1000);
+    spaces.forEach((space, i) => {
+      spaces[i] = null;
+    });
+    boxes.forEach((box) => {
+      box.innerText = '';
+    });
+    text.innerText = `Play`;
+    strategy.innerText = ``;
+    currentPlayer = tick_x;
+    remainingPieces = {
+      [tick_x]: MAX_PIECES_PER_PLAYER,
+      [tick_circle]: MAX_PIECES_PER_PLAYER,
+    };
+    selectedPiece = null;
+    roundCount = 0;
   };
 
-  // Add event listener to the restart button
   restartButton.addEventListener('click', restart);
 
-  // Draw the initial board
   drawBoard();
 });
+
+
+
+
+
+
+
+
+
 

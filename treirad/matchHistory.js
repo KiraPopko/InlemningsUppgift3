@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Update match history table on the match history page
   matchHistoryData.forEach((match) => {
+
+
+
     const newRow = document.createElement('tr');
     const winnerCell = document.createElement('td');
     const opponentCell = document.createElement('td');
@@ -26,5 +29,5 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-//matchhistory = matchistory.reverse.splice(0, 10)
+
 
