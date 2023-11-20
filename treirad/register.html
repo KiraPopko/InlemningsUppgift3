@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Player Names</title>
+</head>
+
+<body>
+  <div class="container">
+
+
+    <h1>Tic Tac Toe</h1>
+    <h2>Choose name for player X and O</h2>
+    <label for="playerXName">Player X:</label>
+    <input type="text" id="playerXName" placeholder="Enter name">
+
+    <br>
+
+    <label for="player0Name">Player 0:</label>
+    <select id="player0Name">
+      <option value="Cameron Diaz">Cameron Diaz</option>
+      <option value="Harry Potter">Harry Potter</option>
+      <option value="Mario">Mario</option>
+      <option value="Stich">Stich</option>
+      <option value="Pacahontes">Pacahontes</option>
+
+    </select>
+
+    <br>
+    <a href="tictac.html" style="width: 30%;"><button onclick="startGame()" class="submit">Show Players</button></a>
+
+
+    <script>
+
+      /*document.getElementById('startGame').addEventListener('click', function () {
+        // Get player names from the input fields and dropdown
+        const player1Name = document.getElementById('playerX').value;
+        const player2Name = document.getElementById('player0').value;
+ 
+        // Save player names to local storage for access in the game.html page
+        localStorage.setItem('player1Name', player1Name);
+        localStorage.setItem('player2Name', player2Name);
+ 
+        alert('Player X: ' + player1Name + '\nPlayer 0: ' + player2Name);
+ 
+        // Navigate to the game.html page
+        //window.location.href = 'tictac.html';
+      
+      });*/
+
+
+      // ... your existing click event code
+
+      function startGame() {
+        // Get player names
+        const playerXName = document.getElementById('playerXName').value;
+        const player0Name = document.getElementById('player0Name').value;
+
+
+        localStorage.setItem('playerXName', playerXName);
+        localStorage.setItem('player0Name', player0Name);
+        // Display player names (you can modify this part based on your game logic)
+        alert('Player X: ' + playerXName + '\nPlayer 0: ' + player0Name);
+
+        // Add your game logic here
+        window.location.href = 'tictac.html';
+      }
+
+    </script>
+    <nav>
+      <section>
+
+        <a href="startSida.html">Start sida</a>
+      </section>
+    </nav>
+  </div>
+</body>
+
+</html>
