@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      roundCount = roundCount;
+      roundCount++;
 
     } else if (spaces[id] && selectedPiece === null) {
       selectedPiece = spaces[id];
