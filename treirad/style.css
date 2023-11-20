@@ -77,11 +77,12 @@ label {
 }
 
 input[type=text] {
-  width: 100%;
+  width: 30%;
   padding: 10px 10px;
   margin: 8px 0;
   box-sizing: border-box;
   border-radius: 4px;
+
 }
 
 .submit {
@@ -95,6 +96,7 @@ input[type=text] {
   cursor: pointer;
   text-transform: uppercase;
   text-align: center;
+  width: 100%;
 }
 
 li {
@@ -126,8 +128,14 @@ li {
 }
 
 nav {
+  margin-bottom: 2vh;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  margin-bottom: 2vh;
+  padding: 10px 20px;
+  border-radius: 20px;
+
 }
 
 a {
@@ -142,4 +150,41 @@ a {
   align-items: flex-start;
   justify-content: flex-start;
 
+}
+
+select {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+#matchHistorySection {
+  display: none;
+}
+
+th {
+
+  border: 3px solid black;
+  width: 20%;
+  height: 70px;
+  font-size: large;
+  background-color: #174e2f;
+}
+
+td {
+
+  border: 2px solid black;
+  width: 20%;
+  height: 40px;
+  text-align: center;
+  background-color: #317a52;
+}
+
+tr:hover {
+  background-color: rgb(201, 185, 20);
+}
+
+ul {
+  background-color: #317a52;
 }
